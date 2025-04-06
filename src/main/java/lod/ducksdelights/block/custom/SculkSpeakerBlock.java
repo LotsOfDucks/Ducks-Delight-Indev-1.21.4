@@ -81,63 +81,48 @@ public class SculkSpeakerBlock extends Block {
         switch(c){
             case 1:
                 world.emitGameEvent(entity, GameEvent.RESONATE_1, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 2:
                 world.emitGameEvent(entity, GameEvent.RESONATE_2, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 3:
                 world.emitGameEvent(entity, GameEvent.RESONATE_3, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 4:
                 world.emitGameEvent(entity, GameEvent.RESONATE_4, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 5:
                 world.emitGameEvent(entity, GameEvent.RESONATE_5, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 6:
                 world.emitGameEvent(entity, GameEvent.RESONATE_6, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 7:
                 world.emitGameEvent(entity, GameEvent.RESONATE_7, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 8:
                 world.emitGameEvent(entity, GameEvent.RESONATE_8, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 9:
                 world.emitGameEvent(entity, GameEvent.RESONATE_9, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 10:
                 world.emitGameEvent(entity, GameEvent.RESONATE_10, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 11:
                 world.emitGameEvent(entity, GameEvent.RESONATE_11, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 12:
                 world.emitGameEvent(entity, GameEvent.RESONATE_12, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 13:
                 world.emitGameEvent(entity, GameEvent.RESONATE_13, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 14:
                 world.emitGameEvent(entity, GameEvent.RESONATE_14, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 15:
                 world.emitGameEvent(entity, GameEvent.RESONATE_15, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
         }
     }
 

@@ -30,6 +30,16 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
     protected static final VoxelShape LOW_SHAPE;
     protected static final VoxelShape SHAPE;
 
+    public SculkSpeakerBlock(AbstractBlock.Settings settings) {
+        super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false).with(POWERED, false));
+    }
+
+    @Override
+    public MapCodec<? extends SculkSpeakerBlock> getCodec() {
+        return CODEC;
+    }
+
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
     }
@@ -46,11 +56,13 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
         return true;
     }
 
-    protected SculkSpeakerBlock(Settings settings) {
-        super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false).with(POWERED, false));
+
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(POWERED);
+        builder.add(WATERLOGGED);
     }
 
+    @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
@@ -75,84 +87,74 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
 
     }
 
-    private int getEmitFrequency(RedstoneView world, BlockPos pos) {
+    private void emitFrequency(World world, BlockPos pos) {
         int a = Math.max(world.getEmittedRedstonePower(pos.north(1), Direction.SOUTH), world.getEmittedRedstonePower(pos.south(1), Direction.NORTH));
         int b = Math.max(world.getEmittedRedstonePower(pos.east(1), Direction.WEST), world.getEmittedRedstonePower(pos.west(1), Direction.EAST));
-        return Math.max(a, b);
-    }
-
-    private void emitFrequency(World world, BlockPos pos) {
-        int i = this.getEmitFrequency(world, pos);
-        switch(i){
+        int c = Math.max(a, b);
+        switch(c){
             case 0:
                 break;
             case 1:
                 world.emitGameEvent(null, GameEvent.RESONATE_1, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 2:
                 world.emitGameEvent(null, GameEvent.RESONATE_2, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 3:
                 world.emitGameEvent(null, GameEvent.RESONATE_3, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 4:
                 world.emitGameEvent(null, GameEvent.RESONATE_4, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 5:
                 world.emitGameEvent(null, GameEvent.RESONATE_5, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 6:
                 world.emitGameEvent(null, GameEvent.RESONATE_6, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 7:
                 world.emitGameEvent(null, GameEvent.RESONATE_7, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 8:
                 world.emitGameEvent(null, GameEvent.RESONATE_8, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 9:
                 world.emitGameEvent(null, GameEvent.RESONATE_9, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 10:
                 world.emitGameEvent(null, GameEvent.RESONATE_10, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 11:
                 world.emitGameEvent(null, GameEvent.RESONATE_11, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 12:
                 world.emitGameEvent(null, GameEvent.RESONATE_12, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 13:
                 world.emitGameEvent(null, GameEvent.RESONATE_13, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 14:
                 world.emitGameEvent(null, GameEvent.RESONATE_14, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
                 break;
             case 15:
                 world.emitGameEvent(null, GameEvent.RESONATE_15, pos);
-                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)i / 24.0, 0.0, 0.0);
-                break;
-            default:
-                break;
+                world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, (double)c / 24.0, 0.0, 0.0);
         }
     }
-
-    @Override
-    protected MapCodec<SculkSpeakerBlock> getCodec() { return CODEC; }
 
     static {
         POWERED = Properties.POWERED;

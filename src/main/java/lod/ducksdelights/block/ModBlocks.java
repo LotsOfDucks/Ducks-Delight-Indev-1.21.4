@@ -47,7 +47,7 @@ public class ModBlocks {
 
     public static final Block SCULK_SPEAKER = register(
             "sculk_speaker",
-            Block::new,
+            SculkSpeakerBlock::new,
             AbstractBlock.Settings.create().mapColor(MapColor.CYAN).strength(1.5F).sounds(BlockSoundGroup.SCULK_SENSOR).nonOpaque(),
             true
     );

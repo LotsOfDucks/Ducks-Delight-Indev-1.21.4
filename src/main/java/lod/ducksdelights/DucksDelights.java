@@ -1,6 +1,7 @@
 package lod.ducksdelights;
 
 import lod.ducksdelights.block.ModBlocks;
+import lod.ducksdelights.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ public class DucksDelights implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModBlocks.registerModBlocks();
+		ModItems.initialize();
+		ModBlocks.initialize();
 	}
 }

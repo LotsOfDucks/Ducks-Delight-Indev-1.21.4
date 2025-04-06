@@ -6,42 +6,51 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
+import net.minecraft.block.SculkSensorBlock;
 import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
+import java.util.function.Function;
+
 public class ModBlocks {
 
-    public static final Block SCULK_SPEAKER = registerBlock("sculk_speaker",
-            new Block(AbstractBlock.Settings.create()
-                    .sounds(BlockSoundGroup.SCULK)
-                    .mapColor(MapColor.CYAN)
-                    .requiresTool()
-                    .luminance((state) -> 1)
-                    .emissiveLighting((state, world, pos) -> SculkSpeakerBlock.getPhase(state) == SculkSensorPhase.ACTIVE)
-            ));
+    private static Block register(String name, Function<AbstractBlock.Settings, Block> blockFactory, AbstractBlock.Settings settings, boolean shouldRegisterItem) {
+        RegistryKey<Block> blockKey = keyOfBlock(name);
+        Block block = blockFactory.apply(settings.registryKey(blockKey));
 
+        if (shouldRegisterItem) {
+           RegistryKey<Item> itemKey = keyOfItem(name);
 
+            BlockItem blockItem = new BlockItem(block, new Item.Settings().registryKey(itemKey));
+            Registry.register(Registries.ITEM, itemKey, blockItem);
+        }
 
-    private static Block registerBlock(String name, Block block) {
-        registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, Identifier.of(DucksDelights.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, blockKey, block);
     }
 
-    private static void registerBlockItem(String name, Block block) {
-        Registry.register(Registries.ITEM, Identifier.of(DucksDelights.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+    private static RegistryKey<Block> keyOfBlock(String name) {
+        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(DucksDelights.MOD_ID, name));
     }
 
-    public static void registerModBlocks() {
-        DucksDelights.LOGGER.info("Registering" + DucksDelights.MOD_ID + "Blocks");
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
-            entries.add(ModBlocks.SCULK_SPEAKER);
-        });
+    private static RegistryKey<Item> keyOfItem(String name) {
+        return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(DucksDelights.MOD_ID, name));
     }
+
+    public static final Block SCULK_SPEAKER = register(
+            "sculk_speaker",
+            Block::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.CYAN).strength(1.5F).sounds(BlockSoundGroup.SCULK_SENSOR).nonOpaque(),
+            true
+    );
+
+    public static void initialize() {}
 }

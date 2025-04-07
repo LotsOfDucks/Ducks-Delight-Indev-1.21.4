@@ -4,9 +4,12 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -16,7 +19,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -28,10 +30,11 @@ import net.minecraft.world.block.WireOrientation;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-public class SculkSpeakerBlock extends Block {
+public class SculkSpeakerBlock extends Block implements Waterloggable {
     public static final MapCodec<SculkSpeakerBlock> CODEC = createCodec(SculkSpeakerBlock::new);
     public static final BooleanProperty POWERED;
     public static final IntProperty TUNE;
+    public static final BooleanProperty WATERLOGGED;
     protected static final VoxelShape UP_SHAPE;
     protected static final VoxelShape LOW_SHAPE;
     protected static final VoxelShape SHAPE;
@@ -42,6 +45,7 @@ public class SculkSpeakerBlock extends Block {
 
     public SculkSpeakerBlock(Settings settings) {
         super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(TUNE, 1).with(POWERED, false).with(WATERLOGGED, false));
     }
 
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -60,8 +64,15 @@ public class SculkSpeakerBlock extends Block {
         return true;
     }
 
+    @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState();
+        BlockPos blockPos = ctx.getBlockPos();
+        FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
+        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+    }
+
+    protected FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
@@ -159,16 +170,21 @@ public class SculkSpeakerBlock extends Block {
             f = 1.0F;
         }
         RegistryEntry registryEntry = noteBlockInstrument.getSound();
-        world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, registryEntry, SoundCategory.RECORDS, 3.0F, f, world.random.nextLong());
+        if (!(Boolean)state.get(WATERLOGGED)) {
+            world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, registryEntry, SoundCategory.RECORDS, 3.0F, f, world.random.nextLong());
+        } else {
+            world.addParticle(ParticleTypes.BUBBLE_COLUMN_UP, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, 0, 0.0, 0.0);
+        }
         return true;
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{POWERED, TUNE});
+        builder.add(POWERED, TUNE);
     }
 
     static {
         POWERED = Properties.POWERED;
+        WATERLOGGED = Properties.WATERLOGGED;
         TUNE = IntProperty.of("tune", 1, 15);
         UP_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
         LOW_SHAPE = Block.createCuboidShape(2.0, 8.0, 2.0, 14.0, 12.0, 14.0);

@@ -12,7 +12,7 @@ public final class ModItems {
     private ModItems() {
     }
 
-    public static final Item CUSTOM_ITEM = register("custom_item", Item::new, new Item.Settings());
+    //public static final Item CUSTOM_ITEM = register("custom_item", Item::new, new Item.Settings());
 
     public static Item register(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
         final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of("ducksdelights", path));

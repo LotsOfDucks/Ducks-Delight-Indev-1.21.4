@@ -5,6 +5,8 @@ import lod.ducksdelights.block.custom.SculkSpeakerBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
+import net.minecraft.block.SculkSensorBlock;
+import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;

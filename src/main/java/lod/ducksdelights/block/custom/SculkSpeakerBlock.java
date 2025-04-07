@@ -173,13 +173,19 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
         if (!(Boolean)state.get(WATERLOGGED)) {
             world.playSound(null, (double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, registryEntry, SoundCategory.RECORDS, 3.0F, f, world.random.nextLong());
         } else {
-            world.addParticle(ParticleTypes.BUBBLE_COLUMN_UP, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, 0, 0.0, 0.0);
+            double d = pos.getX();
+            double e = pos.getY();
+            double g = pos.getZ();
+            world.addImportantParticle(ParticleTypes.BUBBLE, d + 0.5, e + 0.7, g + 0.5, 0.0, 0.04, 0.0);
+            world.addImportantParticle(ParticleTypes.BUBBLE, d + Math.random(), e + 0.7, g + Math.random(), 0.0, 0.04, 0.0);
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + Math.random(), e + 0.7, g + Math.random(), 0.0, 0.04, 0.0);
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + Math.random(), e + 0.7, g + Math.random(), 0.0, 0.04, 0.0);
         }
         return true;
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(POWERED, TUNE);
+        builder.add(POWERED, WATERLOGGED, TUNE);
     }
 
     static {

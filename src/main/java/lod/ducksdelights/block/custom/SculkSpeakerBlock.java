@@ -11,8 +11,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
@@ -22,6 +24,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -182,6 +185,14 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
             world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + Math.random(), e + 0.7, g + Math.random(), 0.0, 0.04, 0.0);
         }
         return true;
+    }
+
+    protected void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack tool, boolean dropExperience) {
+        super.onStacksDropped(state, world, pos, tool, dropExperience);
+        if (dropExperience) {
+            this.dropExperienceWhenMined(world, pos, tool, ConstantIntProvider.create(5));
+        }
+
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

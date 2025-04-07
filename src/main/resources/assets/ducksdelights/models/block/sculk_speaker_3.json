@@ -1,7 +1,7 @@
 {
 	"parent": "minecraft:block/block",
 	"textures": {
-		"0": "ducksdelights:block/sculk_speaker_side",
+		"0": "ducksdelights:block/sculk_speaker_side_3",
 		"1": "ducksdelights:block/sculk_speaker_bottom",
 		"4": "ducksdelights:block/sculk_speaker_top",
 		"5": "ducksdelights:block/sculk_speaker_note_block",

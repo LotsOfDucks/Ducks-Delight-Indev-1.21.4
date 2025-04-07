@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ducksdelights:block/sculk_speaker"
+    "model": "ducksdelights:block/sculk_speaker_1"
   }
 }

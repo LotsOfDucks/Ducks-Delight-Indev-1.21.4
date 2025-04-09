@@ -1,6 +1,7 @@
 package lod.ducksdelights;
 
 import lod.ducksdelights.block.ModBlocks;
+import lod.ducksdelights.entity.ModBlockEntityTypes;
 import lod.ducksdelights.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -15,5 +16,6 @@ public class DucksDelights implements ModInitializer {
 	public void onInitialize() {
 		ModItems.initialize();
 		ModBlocks.initialize();
+		ModBlockEntityTypes.initialize();
 	}
 }

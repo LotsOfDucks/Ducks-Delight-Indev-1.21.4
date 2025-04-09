@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "ducksdelights:block/demon_core_open"
+    },
+    "powered=true": {
+      "model": "ducksdelights:block/demon_core_closed"
+    }
+  }
+}

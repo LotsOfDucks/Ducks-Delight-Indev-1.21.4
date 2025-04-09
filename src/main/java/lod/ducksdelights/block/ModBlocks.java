@@ -1,6 +1,7 @@
 package lod.ducksdelights.block;
 
 import lod.ducksdelights.DucksDelights;
+import lod.ducksdelights.block.custom.DemonCoreBlock;
 import lod.ducksdelights.block.custom.SculkSpeakerBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -46,6 +47,13 @@ public class ModBlocks {
             "sculk_speaker",
             SculkSpeakerBlock::new,
             AbstractBlock.Settings.create().mapColor(MapColor.CYAN).strength(1.5F).sounds(BlockSoundGroup.SCULK_SENSOR).nonOpaque(),
+            true
+    );
+
+    public static final Block DEMON_CORE = register(
+            "demon_core",
+            DemonCoreBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.BLACK).requiresTool().strength(50.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE),
             true
     );
 

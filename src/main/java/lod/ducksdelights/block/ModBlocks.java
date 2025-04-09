@@ -53,7 +53,7 @@ public class ModBlocks {
     public static final Block DEMON_CORE = register(
             "demon_core",
             DemonCoreBlock::new,
-            AbstractBlock.Settings.create().mapColor(MapColor.BLACK).requiresTool().strength(50.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE),
+            AbstractBlock.Settings.create().mapColor(MapColor.BLACK).requiresTool().strength(50.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE).luminance((state) -> 3).emissiveLighting((state, world, pos) -> state.get(DemonCoreBlock.POWERED)),
             true
     );
 

@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "nnn",
+        "nHn",
+        "nnn"
+    ],
+    "key": {
+        "n": "minecraft:netherite_ingot",
+        "H": "minecraft:heavy_core"
+    },
+    "result": {
+        "id": "ducksdelights:demon_core",
+        "count": 1
+    }
+}

@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ConduitBlockEntity;
+import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -47,6 +48,10 @@ public class DemonCoreBlock extends BlockWithEntity implements Waterloggable {
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntityTypes.DEMON_CORE, world.isClient ? DemonCoreBlockEntity::clientTick : DemonCoreBlockEntity::serverTick);
+    }
+
+    protected boolean emitsRedstonePower(BlockState state) {
+        return true;
     }
 
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

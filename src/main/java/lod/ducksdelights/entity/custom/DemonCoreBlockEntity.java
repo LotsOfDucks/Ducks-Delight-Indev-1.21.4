@@ -110,7 +110,7 @@ public class DemonCoreBlockEntity extends BlockEntity {
 
     private static void irradiateEntities(World world, List<LivingEntity> list, BlockPos pos) {
         for (LivingEntity livingEntity : list) {
-            if (pos.toCenterPos().isInRange(livingEntity.getPos(), 20) && !livingEntity.isInCreativeMode() && livingEntity.getHealth() > 0 && livingEntity.age >= 200) {
+            if (pos.toCenterPos().isInRange(livingEntity.getPos(), 20) && !livingEntity.isInCreativeMode() && livingEntity.getHealth() > 0) {
                 Vec3d vec3d = new Vec3d(pos.toCenterPos().add(0.51).getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ());
                 Vec3d vec3d1 = new Vec3d(pos.toCenterPos().add(-0.51).getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ());
                 Vec3d vec3d2 = new Vec3d(pos.toCenterPos().getX(), pos.toCenterPos().add(0.51).getY(), pos.toCenterPos().getZ());
@@ -119,7 +119,11 @@ public class DemonCoreBlockEntity extends BlockEntity {
                 Vec3d vec3d5 = new Vec3d(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().add(-0.51).getZ());
                 float q = calculateReceivedDamage(world, vec3d, vec3d1, vec3d2, vec3d3, vec3d4, vec3d5, livingEntity, pos);
                 if (q == 1) {
-                    applyDamage(world, pos, livingEntity);
+                    if (livingEntity.isPlayer() && livingEntity.age <= 200) {
+                        return;
+                    } else {
+                        applyDamage(world, pos, livingEntity);
+                    }
                 }
             }
         }

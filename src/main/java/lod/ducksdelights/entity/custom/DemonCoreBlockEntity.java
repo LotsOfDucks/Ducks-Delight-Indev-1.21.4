@@ -26,6 +26,7 @@ import java.util.List;
 public class DemonCoreBlockEntity extends BlockEntity {
     private boolean powered;
     public int ticks;
+    public int range = 20;
 
     public DemonCoreBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntityTypes.DEMON_CORE, pos, state);
@@ -47,20 +48,20 @@ public class DemonCoreBlockEntity extends BlockEntity {
         ++blockEntity.ticks;
         blockEntity.powered = world.isReceivingRedstonePower(pos);
         if (blockEntity.powered) {
-            int j = 20;
+            int j = blockEntity.range;
             int k = pos.getX();
             int l = pos.getY();
             int m = pos.getZ();
-            Box box = (new Box(k, l, m, k + 1, l + 1, m + 1)).expand(j).stretch(0.0, 0.0, 0.0);
+            Box box = (new Box(k, l, m, k + 1, l + 1, m + 1)).expand(j + 4).stretch(0.0, 0.0, 0.0);
             List<LivingEntity> list = world.getEntitiesByClass(LivingEntity.class, box, LivingEntity::isMobOrPlayer);
             if (!list.isEmpty()) {
-                irradiateEntities(world, list, pos);
+                irradiateEntities(world, list, pos, j);
             }
         }
     }
 
-    public static float calculateReceivedDamage(World world, Vec3d pos1, Vec3d pos2, Vec3d pos3, Vec3d pos4, Vec3d pos5, Vec3d pos6, LivingEntity livingEntity, BlockPos pos) {
-        long a = (long) (Math.clamp(Math.ceil(Math.abs(pos.toCenterPos().distanceTo(livingEntity.getPos()))), 1, 20));
+    public static float calculateReceivedDamage(World world, Vec3d pos1, Vec3d pos2, Vec3d pos3, Vec3d pos4, Vec3d pos5, Vec3d pos6, LivingEntity livingEntity, BlockPos pos, Integer val) {
+        long a = (long) (Math.clamp(Math.ceil(Math.abs(pos.toCenterPos().distanceTo(livingEntity.getPos()))), 1, val));
         long s = world.getTime();
         if (s % a == 0L) {
             Box box = livingEntity.getBoundingBox();
@@ -108,16 +109,16 @@ public class DemonCoreBlockEntity extends BlockEntity {
         return 0.0F;
     }
 
-    private static void irradiateEntities(World world, List<LivingEntity> list, BlockPos pos) {
+    private static void irradiateEntities(World world, List<LivingEntity> list, BlockPos pos, Integer val) {
         for (LivingEntity livingEntity : list) {
-            if (pos.toCenterPos().isInRange(livingEntity.getPos(), 20) && !livingEntity.isInCreativeMode() && livingEntity.getHealth() > 0) {
+            if (pos.toCenterPos().isInRange(livingEntity.getPos(), val) && !livingEntity.isInCreativeMode() && livingEntity.getHealth() > 0) {
                 Vec3d vec3d = new Vec3d(pos.toCenterPos().add(0.51).getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ());
                 Vec3d vec3d1 = new Vec3d(pos.toCenterPos().add(-0.51).getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ());
                 Vec3d vec3d2 = new Vec3d(pos.toCenterPos().getX(), pos.toCenterPos().add(0.51).getY(), pos.toCenterPos().getZ());
                 Vec3d vec3d3 = new Vec3d(pos.toCenterPos().getX(), pos.toCenterPos().add(-0.51).getY(), pos.toCenterPos().getZ());
                 Vec3d vec3d4 = new Vec3d(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().add(0.51).getZ());
                 Vec3d vec3d5 = new Vec3d(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().add(-0.51).getZ());
-                float q = calculateReceivedDamage(world, vec3d, vec3d1, vec3d2, vec3d3, vec3d4, vec3d5, livingEntity, pos);
+                float q = calculateReceivedDamage(world, vec3d, vec3d1, vec3d2, vec3d3, vec3d4, vec3d5, livingEntity, pos, val);
                 if (q == 1) {
                     if (livingEntity.isPlayer() && livingEntity.age <= 200) {
                         return;

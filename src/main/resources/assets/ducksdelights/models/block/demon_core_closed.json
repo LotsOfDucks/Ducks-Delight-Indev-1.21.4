@@ -3,6 +3,8 @@
 	"textures": {
 		"0": "ducksdelights:block/demon_core_shell_side",
 		"1": "ducksdelights:block/demon_core_shell_bottom_inside",
+		"2": "ducksdelights:block/demon_core_shell_bottom",
+		"3": "ducksdelights:block/demon_core_shell_top",
 		"4": "ducksdelights:block/heavy_core",
 		"particle": "ducksdelights:block/demon_core_shell_bottom"
 	},
@@ -31,7 +33,7 @@
 				"south": {"uv": [0, 8, 16, 16], "texture": "#0"},
 				"west": {"uv": [0, 8, 16, 16], "texture": "#0"},
 				"up": {"uv": [16, 16, 0, 0], "texture": "#1"},
-				"down": {"uv": [16, 0, 0, 16], "texture": "#1"}
+				"down": {"uv": [16, 0, 0, 16], "texture": "#2"}
 			}
 		},
 		{
@@ -44,8 +46,8 @@
 				"east": {"uv": [1, 2, 15, 8], "texture": "#0"},
 				"south": {"uv": [1, 2, 15, 8], "texture": "#0"},
 				"west": {"uv": [1, 2, 15, 8], "texture": "#0"},
-				"up": {"uv": [15, 15, 1, 1], "texture": "#1"},
-				"down": {"uv": [15, 1, 1, 15], "texture": "#1"}
+				"up": {"uv": [15, 15, 1, 1], "texture": "#3"},
+				"down": {"uv": [15, 1, 1, 15], "texture": "#3"}
 			}
 		},
 		{

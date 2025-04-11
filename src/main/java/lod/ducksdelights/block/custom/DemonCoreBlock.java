@@ -3,6 +3,7 @@ package lod.ducksdelights.block.custom;
 import com.mojang.serialization.MapCodec;
 import lod.ducksdelights.entity.ModBlockEntityTypes;
 import lod.ducksdelights.entity.custom.DemonCoreBlockEntity;
+import lod.ducksdelights.sound.ModSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -13,6 +14,9 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
@@ -73,6 +77,7 @@ public class DemonCoreBlock extends BlockWithEntity implements Waterloggable {
         boolean bl = world.isReceivingRedstonePower(pos);
         if (bl != state.get(POWERED)) {
             world.setBlockState(pos, state.with(POWERED, bl));
+            world.playSound(null, pos, ModSounds.DEMON_CORE_TINK, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
     }
 

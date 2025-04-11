@@ -3,5 +3,8 @@
   "item.ducksdelights.demon_core": "Demon Core",
 
   "block.ducksdelights.sculk_speaker": "Sculk Speaker",
-  "block.ducksdelights.demon_core": "Demon Core"
+  "block.ducksdelights.demon_core": "Demon Core",
+
+  "sounds.ducksdelights.demon_core_ambient": "Demon Core Hums Ominously",
+  "sounds.ducksdelights.demon_core_tink": "Demon Core Opens/Closes"
 }

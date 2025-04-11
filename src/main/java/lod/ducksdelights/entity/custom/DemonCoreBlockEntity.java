@@ -1,6 +1,8 @@
 package lod.ducksdelights.entity.custom;
 
+import lod.ducksdelights.block.custom.DemonCoreBlock;
 import lod.ducksdelights.entity.ModBlockEntityTypes;
+import lod.ducksdelights.sound.ModSounds;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -10,8 +12,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -25,6 +30,7 @@ import java.util.List;
 
 public class DemonCoreBlockEntity extends BlockEntity {
     private boolean powered;
+    private boolean waterlogged;
     public int ticks;
     public int range = 20;
 
@@ -42,11 +48,23 @@ public class DemonCoreBlockEntity extends BlockEntity {
 
     public static void clientTick(World world, BlockPos pos, BlockState state, DemonCoreBlockEntity blockEntity) {
         ++blockEntity.ticks;
+        blockEntity.powered = world.isReceivingRedstonePower(pos);
+        blockEntity.waterlogged = world.getBlockState(pos).get(DemonCoreBlock.WATERLOGGED);
+        if (blockEntity.waterlogged && blockEntity.powered) {
+            double d = pos.toCenterPos().getX();
+            double e = pos.toCenterPos().getY();
+            double g = pos.toCenterPos().getZ();
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e + 0.1, g + (0.5 *Math.random()), Math.random(), 0.02, Math.random());
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e + 0.1, g + (-0.5 *Math.random()), (-1 *Math.random()), 0.02, (-1 * Math.random()));
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e + 0.1, g + (0.5 *Math.random()), (-1 *Math.random()), 0.02, Math.random());
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e + 0.1, g + (-0.5 *Math.random()), Math.random(), 0.02, (-1 * Math.random()));
+        }
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, DemonCoreBlockEntity blockEntity) {
         ++blockEntity.ticks;
         blockEntity.powered = world.isReceivingRedstonePower(pos);
+        blockEntity.waterlogged = world.getBlockState(pos).get(DemonCoreBlock.WATERLOGGED);
         if (blockEntity.powered) {
             int j = blockEntity.range;
             int k = pos.getX();
@@ -56,6 +74,14 @@ public class DemonCoreBlockEntity extends BlockEntity {
             List<LivingEntity> list = world.getEntitiesByClass(LivingEntity.class, box, LivingEntity::isMobOrPlayer);
             if (!list.isEmpty()) {
                 irradiateEntities(world, list, pos, j);
+            }
+            long s = world.getTime();
+            if (s % 40L == 0L) {
+                if (!blockEntity.waterlogged) {
+                    world.playSound(null, pos, ModSounds.DEMON_CORE_AMBIENT, SoundCategory.BLOCKS, 10.0F, 1.0F);
+                } else {
+                    world.playSound(null, pos, ModSounds.DEMON_CORE_AMBIENT, SoundCategory.BLOCKS, 5.0F, 0.5F);
+                }
             }
         }
     }

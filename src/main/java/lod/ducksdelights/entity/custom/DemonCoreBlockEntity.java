@@ -2,21 +2,19 @@ package lod.ducksdelights.entity.custom;
 
 import lod.ducksdelights.block.custom.DemonCoreBlock;
 import lod.ducksdelights.entity.ModBlockEntityTypes;
+import lod.ducksdelights.entity.damage.ModDamageTypes;
 import lod.ducksdelights.sound.ModSounds;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -25,7 +23,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class DemonCoreBlockEntity extends BlockEntity {
@@ -160,7 +157,12 @@ public class DemonCoreBlockEntity extends BlockEntity {
         long a = (long) (Math.clamp(Math.ceil(Math.abs(pos.toCenterPos().distanceTo(livingEntity.getPos()))), 1, 20));
         long s = world.getTime();
         if (s % a == 0L) {
-            livingEntity.damage((ServerWorld) world, world.getDamageSources().outOfWorld(), 1);
+            DamageSource damageSource = new DamageSource(
+                    world.getRegistryManager()
+                            .getOrThrow(RegistryKeys.DAMAGE_TYPE)
+                            .getEntry(ModDamageTypes.FISSION.getValue()).get()
+            );
+            livingEntity.damage((ServerWorld) world, damageSource, 1);
         }
     }
 }

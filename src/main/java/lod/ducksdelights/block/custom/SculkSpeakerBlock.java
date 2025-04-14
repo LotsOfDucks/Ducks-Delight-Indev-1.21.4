@@ -95,7 +95,7 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
 
     protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
         boolean bl = world.isReceivingRedstonePower(pos);
-        int a = world.getEmittedRedstonePower(pos.offset(state.get(FACING).getOpposite()), state.get(FACING));
+        int a = world.getEmittedRedstonePower(pos.offset(state.get(FACING).getOpposite()), state.get(FACING).getOpposite());
         if (bl != state.get(POWERED)) {
             if (a > 0) {
                 world.setBlockState(pos, state.with(POWERED, bl).with(TUNE, a));
@@ -103,11 +103,7 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
                 world.setBlockState(pos, state.with(POWERED, bl));
             }
             if (bl) {
-                if (a > 0) {
-                    this.playResonance(null, state.with(TUNE, a), world, pos);
-                }else {
-                    this.playResonance(null, state, world, pos);
-                }
+                this.playResonance(null, state, world, pos);
             }
         }
     }

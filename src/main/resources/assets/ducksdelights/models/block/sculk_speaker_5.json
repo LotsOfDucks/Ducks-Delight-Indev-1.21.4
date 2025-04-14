@@ -3,6 +3,7 @@
 	"textures": {
 		"0": "ducksdelights:block/sculk_speaker_side_5",
 		"1": "ducksdelights:block/sculk_speaker_bottom",
+		"2": "ducksdelights:block/sculk_speaker_side_input",
 		"4": "ducksdelights:block/sculk_speaker_top",
 		"5": "ducksdelights:block/sculk_speaker_note_block",
 		"particle": "ducksdelights:block/sculk_speaker_bottom"
@@ -15,7 +16,7 @@
 			"faces": {
 				"north": {"uv": [0, 8, 16, 16], "texture": "#0", "cullface": "north"},
 				"east": {"uv": [0, 8, 16, 16], "texture": "#0", "cullface": "east"},
-				"south": {"uv": [0, 8, 16, 16], "texture": "#0", "cullface": "south"},
+				"south": {"uv": [0, 8, 16, 16], "texture": "#2", "cullface": "south"},
 				"west": {"uv": [0, 8, 16, 16], "texture": "#0", "cullface": "west"},
 				"up": {"uv": [0, 0, 16, 16], "texture": "#4"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#1", "cullface": "down"}

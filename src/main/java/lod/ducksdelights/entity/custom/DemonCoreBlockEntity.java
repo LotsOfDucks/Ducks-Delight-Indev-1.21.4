@@ -16,10 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
@@ -51,10 +48,10 @@ public class DemonCoreBlockEntity extends BlockEntity {
             double d = pos.toCenterPos().getX();
             double e = pos.toCenterPos().getY();
             double g = pos.toCenterPos().getZ();
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e, g + (0.5 *Math.random()), Math.random(), 0.02, Math.random());
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e, g + (-0.5 *Math.random()), (-1 *Math.random()), 0.02, (-1 * Math.random()));
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e, g + (0.5 *Math.random()), (-1 *Math.random()), 0.02, Math.random());
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e, g + (-0.5 *Math.random()), Math.random(), 0.02, (-1 * Math.random()));
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e + 0.02, g + (0.5 *Math.random()), Math.random(), 0.02, Math.random());
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e + 0.02, g + (-0.5 *Math.random()), (-1 *Math.random()), 0.02, (-1 * Math.random()));
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e + 0.02, g + (0.5 *Math.random()), (-1 *Math.random()), 0.02, Math.random());
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e + 0.02, g + (-0.5 *Math.random()), Math.random(), 0.02, (-1 * Math.random()));
         }
     }
 

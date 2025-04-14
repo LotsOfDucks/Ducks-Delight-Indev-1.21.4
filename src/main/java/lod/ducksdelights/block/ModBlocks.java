@@ -2,11 +2,13 @@ package lod.ducksdelights.block;
 
 import lod.ducksdelights.DucksDelights;
 import lod.ducksdelights.block.custom.DemonCoreBlock;
+import lod.ducksdelights.block.custom.MoonPhaseDetectorBlock;
 import lod.ducksdelights.block.custom.SculkSpeakerBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.SculkSensorBlock;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -54,6 +56,13 @@ public class ModBlocks {
             "demon_core",
             DemonCoreBlock::new,
             AbstractBlock.Settings.create().mapColor(MapColor.BLACK).requiresTool().strength(50.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE).luminance((state) -> 3).emissiveLighting((state, world, pos) -> state.get(DemonCoreBlock.POWERED)),
+            true
+    );
+
+    public static final Block MOON_PHASE_DETECTOR = register(
+            "moon_phase_detector",
+            MoonPhaseDetectorBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).burnable(),
             true
     );
 

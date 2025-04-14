@@ -1,29 +1,35 @@
 package lod.ducksdelights.block.custom;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.Waterloggable;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.block.enums.WireConnection;
+import net.minecraft.datafixer.fix.ChunkPalettedStorageFix;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -41,6 +47,7 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
     protected static final VoxelShape UP_SHAPE;
     protected static final VoxelShape LOW_SHAPE;
     protected static final VoxelShape SHAPE;
+    public static final EnumProperty<Direction> FACING;
 
     public MapCodec<SculkSpeakerBlock> getCodec() {
         return CODEC;
@@ -48,7 +55,7 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
 
     public SculkSpeakerBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(TUNE, 1).with(POWERED, false).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(TUNE, 1).with(POWERED, false).with(WATERLOGGED, false).with(FACING, Direction.NORTH));
     }
 
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -71,21 +78,37 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
-        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(POWERED, ctx.getWorld().isReceivingRedstonePower(ctx.getBlockPos()));
+        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(POWERED, ctx.getWorld().isReceivingRedstonePower(ctx.getBlockPos()));
     }
 
     protected FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
+    }
+
     protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
         boolean bl = world.isReceivingRedstonePower(pos);
+        int a = world.getEmittedRedstonePower(pos.offset(state.get(FACING).getOpposite()), state.get(FACING));
         if (bl != state.get(POWERED)) {
-            if (bl) {
-                this.playResonance(null, state, world, pos);
+            if (a > 0) {
+                world.setBlockState(pos, state.with(POWERED, bl).with(TUNE, a));
+            }else {
+                world.setBlockState(pos, state.with(POWERED, bl));
             }
-
-            world.setBlockState(pos, state.with(POWERED, bl));
+            if (bl) {
+                if (a > 0) {
+                    this.playResonance(null, state.with(TUNE, a), world, pos);
+                }else {
+                    this.playResonance(null, state, world, pos);
+                }
+            }
         }
     }
 
@@ -196,7 +219,7 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(POWERED, WATERLOGGED, TUNE);
+        builder.add(POWERED, WATERLOGGED, TUNE, FACING);
     }
 
     static {
@@ -206,5 +229,6 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
         UP_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
         LOW_SHAPE = Block.createCuboidShape(2.0, 8.0, 2.0, 14.0, 12.0, 14.0);
         SHAPE = VoxelShapes.union(UP_SHAPE, LOW_SHAPE);
+        FACING = Properties.HORIZONTAL_FACING;
     }
 }

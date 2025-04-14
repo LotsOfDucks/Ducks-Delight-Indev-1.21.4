@@ -10,5 +10,5 @@ public class DucksDelightsClient implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), ModBlocks.SCULK_SPEAKER);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), ModBlocks.DEMON_CORE);
-    }
+     }
 }

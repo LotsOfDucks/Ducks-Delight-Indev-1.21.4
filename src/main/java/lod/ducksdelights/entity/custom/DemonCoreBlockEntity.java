@@ -51,10 +51,10 @@ public class DemonCoreBlockEntity extends BlockEntity {
             double d = pos.toCenterPos().getX();
             double e = pos.toCenterPos().getY();
             double g = pos.toCenterPos().getZ();
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e + 0.1, g + (0.5 *Math.random()), Math.random(), 0.02, Math.random());
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e + 0.1, g + (-0.5 *Math.random()), (-1 *Math.random()), 0.02, (-1 * Math.random()));
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e + 0.1, g + (0.5 *Math.random()), (-1 *Math.random()), 0.02, Math.random());
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e + 0.1, g + (-0.5 *Math.random()), Math.random(), 0.02, (-1 * Math.random()));
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e, g + (0.5 *Math.random()), Math.random(), 0.02, Math.random());
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e, g + (-0.5 *Math.random()), (-1 *Math.random()), 0.02, (-1 * Math.random()));
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (-0.5 *Math.random()), e, g + (0.5 *Math.random()), (-1 *Math.random()), 0.02, Math.random());
+            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (0.5 *Math.random()), e, g + (-0.5 *Math.random()), Math.random(), 0.02, (-1 * Math.random()));
         }
     }
 

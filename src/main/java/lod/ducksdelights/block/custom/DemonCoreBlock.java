@@ -15,8 +15,12 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -31,6 +35,7 @@ public class DemonCoreBlock extends BlockWithEntity implements Waterloggable {
     protected static final VoxelShape UP_SHAPE;
     protected static final VoxelShape LOW_SHAPE;
     protected static final VoxelShape SHAPE;
+    public static final EnumProperty<Direction> FACING;
 
     public MapCodec<DemonCoreBlock> getCodec() {
         return CODEC;
@@ -38,7 +43,7 @@ public class DemonCoreBlock extends BlockWithEntity implements Waterloggable {
 
     public DemonCoreBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(POWERED, false).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(POWERED, false).with(WATERLOGGED, false).with(FACING, Direction.NORTH));
     }
 
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
@@ -62,11 +67,19 @@ public class DemonCoreBlock extends BlockWithEntity implements Waterloggable {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
-        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(POWERED, ctx.getWorld().isReceivingRedstonePower(ctx.getBlockPos()));
+        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(POWERED, ctx.getWorld().isReceivingRedstonePower(ctx.getBlockPos()));
     }
 
     protected FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+    }
+
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
     protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
@@ -82,7 +95,7 @@ public class DemonCoreBlock extends BlockWithEntity implements Waterloggable {
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(POWERED, WATERLOGGED);
+        builder.add(POWERED, WATERLOGGED, FACING);
     }
 
     static {
@@ -91,5 +104,6 @@ public class DemonCoreBlock extends BlockWithEntity implements Waterloggable {
         UP_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
         LOW_SHAPE = Block.createCuboidShape(1.0, 8.0, 1.0, 15.0, 14.0, 15.0);
         SHAPE = VoxelShapes.union(UP_SHAPE, LOW_SHAPE);
+        FACING = Properties.HORIZONTAL_FACING;
     }
 }

@@ -74,6 +74,10 @@ public class SculkSpeakerBlock extends Block implements Waterloggable {
         return true;
     }
 
+    protected boolean emitsRedstonePower(BlockState state) {
+        return true;
+    }
+
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();

@@ -3,11 +3,9 @@ package lod.ducksdelights.block;
 import lod.ducksdelights.DucksDelights;
 import lod.ducksdelights.block.custom.DemonCoreBlock;
 import lod.ducksdelights.block.custom.MoonPhaseDetectorBlock;
+import lod.ducksdelights.block.custom.PaddyFarmlandBlock;
 import lod.ducksdelights.block.custom.SculkSpeakerBlock;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.SculkSensorBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.enums.SculkSensorPhase;
 import net.minecraft.item.BlockItem;
@@ -63,6 +61,13 @@ public class ModBlocks {
             "moon_phase_detector",
             MoonPhaseDetectorBlock::new,
             AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).burnable(),
+            true
+    );
+
+    public static final Block PADDY_FARMLAND = register(
+            "paddy_farmland",
+            PaddyFarmlandBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.DIRT_BROWN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRAVEL).blockVision(Blocks::always).suffocates(Blocks::always),
             true
     );
 

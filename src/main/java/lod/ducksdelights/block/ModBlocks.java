@@ -1,13 +1,11 @@
 package lod.ducksdelights.block;
 
 import lod.ducksdelights.DucksDelights;
-import lod.ducksdelights.block.custom.DemonCoreBlock;
-import lod.ducksdelights.block.custom.MoonPhaseDetectorBlock;
-import lod.ducksdelights.block.custom.PaddyFarmlandBlock;
-import lod.ducksdelights.block.custom.SculkSpeakerBlock;
+import lod.ducksdelights.block.custom.*;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.enums.SculkSensorPhase;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -68,6 +66,13 @@ public class ModBlocks {
             "paddy_farmland",
             PaddyFarmlandBlock::new,
             AbstractBlock.Settings.create().mapColor(MapColor.DIRT_BROWN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRAVEL).blockVision(Blocks::always).suffocates(Blocks::always),
+            true
+    );
+
+    public static final Block RICE_CROP = register(
+            "rice_crop",
+            RiceCropBlock::new,
+            AbstractBlock.Settings.create().mapColor((state) -> state.get(CropBlock.AGE) >= 6 ? MapColor.YELLOW : MapColor.DARK_GREEN).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP).pistonBehavior(PistonBehavior.DESTROY),
             true
     );
 

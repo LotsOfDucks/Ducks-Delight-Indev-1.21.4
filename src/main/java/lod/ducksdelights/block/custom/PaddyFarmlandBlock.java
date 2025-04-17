@@ -50,7 +50,7 @@ public class PaddyFarmlandBlock extends Block implements Waterloggable {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         FluidState fluidState = ctx.getWorld().getFluidState(blockPos);
-        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(MOISTURE, (fluidState.getFluid() == Fluids.WATER) ? 7 : 0);
     }
 
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
@@ -65,7 +65,6 @@ public class PaddyFarmlandBlock extends Block implements Waterloggable {
         if (state.get(WATERLOGGED)) {
             tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
-
         return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
@@ -91,7 +90,9 @@ public class PaddyFarmlandBlock extends Block implements Waterloggable {
             } else if (!hasCrop(world, pos)) {
                 setToDirt(null, state, world, pos);
             }
-        } else if (i < 7) {
+        } else if (!state.get(WATERLOGGED)) {
+            world.setBlockState(pos, state.with(MOISTURE, 6), 2);
+        } else {
             world.setBlockState(pos, state.with(MOISTURE, 7), 2);
         }
 

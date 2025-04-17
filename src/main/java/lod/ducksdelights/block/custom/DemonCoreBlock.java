@@ -112,8 +112,8 @@ public class DemonCoreBlock extends BlockWithEntity implements Waterloggable {
     static {
         POWERED = Properties.POWERED;
         WATERLOGGED = Properties.WATERLOGGED;
-        UP_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
-        LOW_SHAPE = Block.createCuboidShape(1.0, 8.0, 1.0, 15.0, 14.0, 15.0);
+        LOW_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
+        UP_SHAPE = Block.createCuboidShape(1.0, 8.0, 1.0, 15.0, 14.0, 15.0);
         SHAPE = VoxelShapes.union(UP_SHAPE, LOW_SHAPE);
         FACING = Properties.HORIZONTAL_FACING;
     }

@@ -76,5 +76,12 @@ public class ModBlocks {
             true
     );
 
+    public static final Block GOLDEN_RICE_CROP = register(
+            "golden_rice_crop",
+            GoldenRiceCropBlock::new,
+            AbstractBlock.Settings.create().mapColor((state) -> state.get(CropBlock.AGE) >= 6 ? MapColor.YELLOW : MapColor.DARK_GREEN).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP).pistonBehavior(PistonBehavior.DESTROY),
+            true
+    );
+
     public static void initialize() {}
 }

@@ -22,7 +22,7 @@ public class FarmlandToPaddyMixin {
         World world = context.getWorld();
         BlockPos blockPos = context.getBlockPos();
         BlockState blockState = world.getBlockState(blockPos);
-        if (blockState == Blocks.FARMLAND.getDefaultState()) {
+        if (blockState.isOf(Blocks.FARMLAND)) {
             world.setBlockState(blockPos, ModBlocks.PADDY_FARMLAND.getDefaultState());
             PlayerEntity playerEntity = context.getPlayer();
             playerEntity.swingHand(playerEntity.getActiveHand());

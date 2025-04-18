@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import lod.ducksdelights.block.ModBlocks;
 import lod.ducksdelights.item.ModItems;
 import net.minecraft.block.*;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -70,6 +71,8 @@ public class RiceCropBlock extends CropBlock  {
                     if (blockState.get(PaddyFarmlandBlock.MOISTURE) > 0) {
                         g = 3.0F;
                     }
+                } else if (blockState.getFluidState().isOf(Fluids.WATER)) {
+                    g = 3.0F;
                 }
 
                 if (i != 0 || j != 0) {

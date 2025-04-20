@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
@@ -43,13 +44,19 @@ public class GoldenRiceCropBlock extends RiceCropBlock{
             for(int j = -1; j <= 1; ++j) {
                 float g = 0.0F;
                 BlockState blockState = world.getBlockState(blockPos.add(i, 0, j));
-                if (blockState.isOf(ModBlocks.PADDY_FARMLAND)) {
-                    g = 1.0F;
-                    if (blockState.get(PaddyFarmlandBlock.MOISTURE) > 0) {
-                        g = 3.0F;
+                if (blockState.contains(Properties.WATERLOGGED)) {
+                    if (blockState.isOf(ModBlocks.PADDY_FARMLAND)) {
+                        g = 1.0F;
+                        if (blockState.get(PaddyFarmlandBlock.MOISTURE) > 0) {
+                            g = 3.0F;
+                        }
+                    } else {
+                        if (blockState.getFluidState().isOf(Fluids.WATER)) {
+                            g = 3.0F;
+                        } else {
+                            g = 1.0F;
+                        }
                     }
-                } else if (blockState.getFluidState().isOf(Fluids.WATER)) {
-                    g = 3.0F;
                 }
 
                 if (i != 0 || j != 0) {
@@ -59,7 +66,7 @@ public class GoldenRiceCropBlock extends RiceCropBlock{
                 f += g;
             }
         }
-        if (!world.getBlockState(blockPos).get(PaddyFarmlandBlock.WATERLOGGED)) {
+        if (world.getBlockState(blockPos).isOf(ModBlocks.PADDY_FARMLAND) && !world.getBlockState(blockPos).get(Properties.WATERLOGGED)) {
             f /= 2.0F;
         }
         return f / 2.0F;

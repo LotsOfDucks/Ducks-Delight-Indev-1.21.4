@@ -54,7 +54,7 @@ public class RiceCropBlock extends CropBlock  {
             if (i < this.getMaxAge()) {
                 float f = getAvailableMoisture(this, world, pos);
                 if (random.nextInt((int)(25.0F / f) + 1) == 0) {
-                    if (i == 5 && random.nextInt(999) == 0) {
+                    if (i == 5 && random.nextInt(4999) == 0) {
                         world.setBlockState(pos, this.withAge(i + 1).with(GOLDEN,true), 2);
                     } else if (state.get(GOLDEN, true)) {
                         world.setBlockState(pos, this.withAge(i + 1).with(GOLDEN,true), 2);
@@ -74,13 +74,19 @@ public class RiceCropBlock extends CropBlock  {
             for(int j = -1; j <= 1; ++j) {
                 float g = 0.0F;
                 BlockState blockState = world.getBlockState(blockPos.add(i, 0, j));
-                if (blockState.isOf(ModBlocks.PADDY_FARMLAND)) {
-                    g = 1.0F;
-                    if (blockState.get(PaddyFarmlandBlock.MOISTURE) > 0) {
-                        g = 3.0F;
+                if (blockState.contains(Properties.WATERLOGGED)) {
+                    if (blockState.isOf(ModBlocks.PADDY_FARMLAND)) {
+                        g = 1.0F;
+                        if (blockState.get(PaddyFarmlandBlock.MOISTURE) > 0) {
+                            g = 3.0F;
+                        }
+                    } else {
+                        if (blockState.getFluidState().isOf(Fluids.WATER)) {
+                            g = 3.0F;
+                        } else {
+                            g = 1.0F;
+                        }
                     }
-                } else if (blockState.getFluidState().isOf(Fluids.WATER)) {
-                    g = 3.0F;
                 }
 
                 if (i != 0 || j != 0) {
@@ -90,7 +96,7 @@ public class RiceCropBlock extends CropBlock  {
                 f += g;
             }
         }
-        if (!world.getBlockState(blockPos).get(PaddyFarmlandBlock.WATERLOGGED)) {
+        if (world.getBlockState(blockPos).isOf(ModBlocks.PADDY_FARMLAND) && !world.getBlockState(blockPos).get(Properties.WATERLOGGED)) {
             f /= 2.0F;
         }
         return f;

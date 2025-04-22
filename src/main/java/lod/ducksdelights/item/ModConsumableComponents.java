@@ -14,6 +14,7 @@ public class ModConsumableComponents {
     public static final ConsumableComponent DRINK = drink().build();
     public static final ConsumableComponent WHITE_RICE;
     public static final ConsumableComponent GOLDEN_RICE;
+    public static final ConsumableComponent GUILDED_ONIGIRI;
 
 
 
@@ -24,17 +25,14 @@ public class ModConsumableComponents {
         return ConsumableComponent.builder().consumeSeconds(1.6F).useAction(UseAction.EAT).sound(SoundEvents.ENTITY_GENERIC_EAT).consumeParticles(true);
     }
 
-    public static ConsumableComponent.Builder quickFood() {
-        return ConsumableComponent.builder().consumeSeconds(1.2F).useAction(UseAction.EAT).sound(SoundEvents.ENTITY_GENERIC_EAT).consumeParticles(true);
-    }
-
     public static ConsumableComponent.Builder drink() {
         return ConsumableComponent.builder().consumeSeconds(1.6F).useAction(UseAction.DRINK).sound(SoundEvents.ENTITY_GENERIC_DRINK).consumeParticles(false);
     }
 
     static {
-        WHITE_RICE = quickFood().build();
-        GOLDEN_RICE = quickFood().build();
+        WHITE_RICE = food().consumeSeconds(1.2F).build();
+        GOLDEN_RICE = food().consumeSeconds(1.2F).build();
+        GUILDED_ONIGIRI = food().consumeEffect(new ApplyEffectsConsumeEffect(List.of(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 1), new StatusEffectInstance(StatusEffects.ABSORPTION, 2400, 0), new StatusEffectInstance(StatusEffects.NIGHT_VISION, 2400, 0)))).build();
     }
 
     public static void initialize() {

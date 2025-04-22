@@ -4,6 +4,7 @@ import lod.ducksdelights.block.ModBlocks;
 import lod.ducksdelights.entity.ModBlockEntityTypes;
 import lod.ducksdelights.item.ModConsumableComponents;
 import lod.ducksdelights.item.ModFoodComponents;
+import lod.ducksdelights.item.ModItemGroups;
 import lod.ducksdelights.item.ModItems;
 import lod.ducksdelights.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
@@ -24,6 +25,7 @@ public class DucksDelights implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModItemGroups.initialize();
 		ModItems.initialize();
 		ModBlocks.initialize();
 		ModBlockEntityTypes.initialize();

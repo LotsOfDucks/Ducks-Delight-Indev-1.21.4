@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "minecraft:dry_kelp",
+    "minecraft:dried_kelp",
     "ducksdelights:white_rice"
   ],
   "result": {

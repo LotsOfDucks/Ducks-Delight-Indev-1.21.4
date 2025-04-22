@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     "minecraft:cooked_beef",
-    "minecraft:dry_kelp",
+    "minecraft:dried_kelp",
     "ducksdelights:white_rice"
   ],
   "result": {

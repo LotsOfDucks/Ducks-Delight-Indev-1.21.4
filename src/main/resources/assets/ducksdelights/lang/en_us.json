@@ -1,5 +1,6 @@
 {
   "itemgroup.ducksdelights.misc": "Ducks' Delights Misc",
+  "itemgroup.ducksdelights.materials": "Ducks' Delights Materials",
   "itemgroup.ducksdelights.food": "Ducks' Delights Food",
 
   "item.ducksdelights.sculk_speaker": "Sculk Speaker",
@@ -16,6 +17,9 @@
   "item.ducksdelights.pork_onigiri": "Pork Onigiri",
   "item.ducksdelights.salmon_onigiri": "Salmon Onigiri",
   "item.ducksdelights.guilded_onigiri": "Guilded Onigiri",
+  "item.ducksdelights.haunted_metal_scrap": "Haunted Metal Scrap",
+  "item.ducksdelights.haunted_metal_sheets": "Haunted Metal Sheets",
+  "item.ducksdelights.haunted_steel_ingot": "Haunted Steel Ingot",
 
   "block.ducksdelights.sculk_speaker": "Sculk Speaker",
   "block.ducksdelights.demon_core": "Demon Core",

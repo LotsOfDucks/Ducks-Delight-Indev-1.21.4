@@ -23,6 +23,17 @@ public class ModItemGroups {
                         entries.add(ModBlocks.DEMON_CORE);
                     }).build());
 
+    public static final ItemGroup DUCKSDELIGHTS_MATERIALS_GROUP = Registry.register(Registries.ITEM_GROUP,
+            Identifier.of(DucksDelights.MOD_ID, "ducksdelights_materials"),
+            FabricItemGroup.builder()
+                    .icon(() -> new ItemStack(ModItems.HAUNTED_STEEL_INGOT))
+                    .displayName(Text.translatable("itemgroup.ducksdelights.materials"))
+                    .entries((displayContext, entries) -> {
+                        entries.add(ModItems.HAUNTED_METAL_SCRAP);
+                        entries.add(ModItems.HAUNTED_METAL_SHEETS);
+                        entries.add(ModItems.HAUNTED_STEEL_INGOT);
+                    }).build());
+
     public static final ItemGroup DUCKSDELIGHTS_FOOD_GROUP = Registry.register(Registries.ITEM_GROUP,
             Identifier.of(DucksDelights.MOD_ID, "ducksdelights_food"),
             FabricItemGroup.builder()

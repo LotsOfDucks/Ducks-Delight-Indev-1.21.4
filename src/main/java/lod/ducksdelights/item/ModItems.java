@@ -1,6 +1,7 @@
 package lod.ducksdelights.item;
 
 import lod.ducksdelights.block.ModBlocks;
+import lod.ducksdelights.item.custom.HauntedBucketItem;
 import lod.ducksdelights.item.custom.InfiniteBucketItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -25,6 +26,10 @@ public final class ModItems {
         return (settings) -> new BlockItem(block, settings.useItemPrefixedTranslationKey());
     }
 
+    private static Function<Item.Settings, Item> createHauntedBucketItem(Fluid fluid) {
+        return (settings) -> new HauntedBucketItem(fluid, settings.useItemPrefixedTranslationKey());
+    }
+
     private static Function<Item.Settings, Item> createInfiniteBucketItem(Fluid fluid) {
         return (settings) -> new InfiniteBucketItem(fluid, settings.useItemPrefixedTranslationKey());
     }
@@ -32,10 +37,11 @@ public final class ModItems {
     public static final Item HAUNTED_METAL_SCRAP = register("haunted_metal_scrap", Item::new, new Item.Settings());
     public static final Item HAUNTED_METAL_SHEETS = register("haunted_metal_sheets", Item::new, new Item.Settings());
     public static final Item HAUNTED_STEEL_INGOT = register("haunted_steel_ingot", Item::new, new Item.Settings());
-    public static final Item HAUNTED_STEEL_BUCKET = register("haunted_steel_bucket", createInfiniteBucketItem(Fluids.EMPTY), new Item.Settings().maxCount(1));
-    public static final Item HAUNTED_STEEL_WATER_BUCKET = register("haunted_steel_water_bucket", createInfiniteBucketItem(Fluids.WATER), new Item.Settings().maxCount(1));
-    public static final Item HAUNTED_STEEL_LAVA_BUCKET = register("haunted_steel_lava_bucket", createInfiniteBucketItem(Fluids.LAVA), new Item.Settings().maxCount(1));
-
+    public static final Item HAUNTED_STEEL_BUCKET = register("haunted_steel_bucket", createHauntedBucketItem(Fluids.EMPTY), new Item.Settings().maxCount(16));
+    public static final Item HAUNTED_STEEL_WATER_BUCKET = register("haunted_steel_water_bucket", createHauntedBucketItem(Fluids.WATER), new Item.Settings().maxCount(16));
+    public static final Item HAUNTED_STEEL_LAVA_BUCKET = register("haunted_steel_lava_bucket", createHauntedBucketItem(Fluids.LAVA), new Item.Settings().maxCount(16));
+    public static final Item OVERFLOWING_WATER_BUCKET = register("overflowing_water_bucket", createInfiniteBucketItem(Fluids.WATER), new Item.Settings().maxCount(1));
+    public static final Item OVERFLOWING_LAVA_BUCKET = register("overflowing_lava_bucket", createInfiniteBucketItem(Fluids.LAVA), new Item.Settings().maxCount(1));
 
     public static final Item RAW_RICE = register("raw_rice", createBlockItemWithUniqueName(ModBlocks.RICE_CROP), new Item.Settings());
     public static final Item RAW_GOLDEN_RICE = register("raw_golden_rice", createBlockItemWithUniqueName(ModBlocks.GOLDEN_RICE_CROP), new Item.Settings());
@@ -46,7 +52,7 @@ public final class ModItems {
     public static final Item BEEF_ONIGIRI = register("beef_onigiri", Item::new, new Item.Settings().food(ModFoodComponents.BEEF_ONIGIRI));
     public static final Item PORK_ONIGIRI = register("pork_onigiri", Item::new, new Item.Settings().food(ModFoodComponents.PORK_ONIGIRI));
     public static final Item SALMON_ONIGIRI = register("salmon_onigiri", Item::new, new Item.Settings().food(ModFoodComponents.SALMON_ONIGIRI));
-    public static final Item GUILDED_ONIGIRI = register("guilded_onigiri", Item::new, new Item.Settings().food(ModFoodComponents.GUILDED_ONIGIRI, ModConsumableComponents.GUILDED_ONIGIRI));
+    public static final Item GILDED_ONIGIRI = register("gilded_onigiri", Item::new, new Item.Settings().food(ModFoodComponents.GILDED_ONIGIRI, ModConsumableComponents.GILDED_ONIGIRI));
 
     //public static final Item CUSTOM_ITEM = register("custom_item", Item::new, new Item.Settings());
 

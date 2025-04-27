@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "ducksdelights:haunted_steel_bucket",
+    "$": "minecraft:nether_star",
+    "%": "minecraft:ghast_tear"
+  },
+  "pattern": [
+    "%$%",
+    "%#%"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ducksdelights:overflowing_lava_bucket"
+  }
+}

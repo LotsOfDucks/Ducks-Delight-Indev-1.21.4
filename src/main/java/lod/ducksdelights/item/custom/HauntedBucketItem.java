@@ -9,7 +9,9 @@ import net.minecraft.block.FluidFillable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.*;
+import net.minecraft.item.BucketItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
@@ -22,15 +24,14 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-public class InfiniteBucketItem extends BucketItem {
+public class HauntedBucketItem extends BucketItem {
     private final Fluid fluid;
 
-    public InfiniteBucketItem(Fluid fluid, Settings settings) {
+    public HauntedBucketItem(Fluid fluid, Settings settings) {
         super(fluid, settings);
         this.fluid = fluid;
     }
 
-    @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         BlockHitResult blockHitResult = raycast(world, user, this.fluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
@@ -48,7 +49,8 @@ public class InfiniteBucketItem extends BucketItem {
                 if (this.fluid == Fluids.EMPTY) {
                     blockState = world.getBlockState(blockPos);
                     Block var14 = blockState.getBlock();
-                    if (var14 instanceof FluidDrainable fluidDrainable) {
+                    if (var14 instanceof FluidDrainable) {
+                        FluidDrainable fluidDrainable = (FluidDrainable)var14;
                         itemStack2 = fluidDrainable.tryDrainFluid(user, world, blockPos, blockState);
                         if (!itemStack2.isEmpty()) {
                             user.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -56,12 +58,12 @@ public class InfiniteBucketItem extends BucketItem {
                                 user.playSound(sound, 1.0F, 1.0F);
                             });
                             world.emitGameEvent(user, GameEvent.FLUID_PICKUP, blockPos);
+                            ItemStack itemStack3 = blockState.getFluidState().isOf(Fluids.WATER) ? ModItems.HAUNTED_STEEL_WATER_BUCKET.getDefaultStack() : blockState.getFluidState().isOf(Fluids.LAVA) ? ModItems.HAUNTED_STEEL_LAVA_BUCKET.getDefaultStack() : ModItems.HAUNTED_STEEL_BUCKET.getDefaultStack();
                             if (!world.isClient) {
                                 Criteria.FILLED_BUCKET.trigger((ServerPlayerEntity)user, itemStack2);
                             }
-                            if (blockState.getFluidState().isOf(Fluids.WATER)) {
-                                return ActionResult.SUCCESS;
-                            }
+
+                            return ActionResult.SUCCESS.withNewHandStack(itemStack3);
                         }
                     }
 
@@ -76,7 +78,8 @@ public class InfiniteBucketItem extends BucketItem {
                         }
 
                         user.incrementStat(Stats.USED.getOrCreateStat(this));
-                        return ActionResult.SUCCESS;
+                        itemStack2 = ItemUsage.exchangeStack(itemStack, user, getEmptiedStack(itemStack, user));
+                        return ActionResult.SUCCESS.withNewHandStack(itemStack2);
                     } else {
                         return ActionResult.FAIL;
                     }
@@ -86,4 +89,9 @@ public class InfiniteBucketItem extends BucketItem {
             }
         }
     }
+    public static ItemStack getEmptiedStack(ItemStack stack, PlayerEntity player) {
+        return !player.isInCreativeMode() ? new ItemStack(ModItems.HAUNTED_STEEL_BUCKET) : stack;
+    }
 }
+
+

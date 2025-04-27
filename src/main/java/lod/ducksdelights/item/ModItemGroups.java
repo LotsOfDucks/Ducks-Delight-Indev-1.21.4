@@ -24,6 +24,8 @@ public class ModItemGroups {
                         entries.add(ModItems.HAUNTED_STEEL_BUCKET);
                         entries.add(ModItems.HAUNTED_STEEL_WATER_BUCKET);
                         entries.add(ModItems.HAUNTED_STEEL_LAVA_BUCKET);
+                        entries.add(ModItems.OVERFLOWING_LAVA_BUCKET);
+                        entries.add(ModItems.OVERFLOWING_WATER_BUCKET);
                     }).build());
 
     public static final ItemGroup DUCKSDELIGHTS_MATERIALS_GROUP = Registry.register(Registries.ITEM_GROUP,
@@ -52,7 +54,7 @@ public class ModItemGroups {
                         entries.add(ModItems.PORK_ONIGIRI);
                         entries.add(ModItems.BEEF_ONIGIRI);
                         entries.add(ModItems.SALMON_ONIGIRI);
-                        entries.add(ModItems.GUILDED_ONIGIRI);
+                        entries.add(ModItems.GILDED_ONIGIRI);
                     }).build());
 
 

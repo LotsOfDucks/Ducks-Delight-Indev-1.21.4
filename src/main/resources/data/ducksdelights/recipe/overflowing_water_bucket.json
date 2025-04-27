@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "ducksdelights:haunted_steel_bucket",
+    "$": "minecraft:heart_of_the_sea",
+    "%": "minecraft:ghast_tear"
+  },
+  "pattern": [
+    "%$%",
+    "%#%"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ducksdelights:overflowing_water_bucket"
+  }
+}

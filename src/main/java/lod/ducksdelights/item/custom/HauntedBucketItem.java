@@ -58,7 +58,8 @@ public class HauntedBucketItem extends BucketItem {
                                 user.playSound(sound, 1.0F, 1.0F);
                             });
                             world.emitGameEvent(user, GameEvent.FLUID_PICKUP, blockPos);
-                            ItemStack itemStack3 = blockState.getFluidState().isOf(Fluids.WATER) ? ModItems.HAUNTED_STEEL_WATER_BUCKET.getDefaultStack() : blockState.getFluidState().isOf(Fluids.LAVA) ? ModItems.HAUNTED_STEEL_LAVA_BUCKET.getDefaultStack() : ModItems.HAUNTED_STEEL_BUCKET.getDefaultStack();
+                            ItemStack itemStack4 = blockState.getFluidState().isOf(Fluids.WATER) ? ModItems.HAUNTED_STEEL_WATER_BUCKET.getDefaultStack() : blockState.getFluidState().isOf(Fluids.LAVA) ? ModItems.HAUNTED_STEEL_LAVA_BUCKET.getDefaultStack() : ModItems.HAUNTED_STEEL_BUCKET.getDefaultStack();
+                            ItemStack itemStack3 = ItemUsage.exchangeStack(itemStack, user, itemStack4) ;
                             if (!world.isClient) {
                                 Criteria.FILLED_BUCKET.trigger((ServerPlayerEntity)user, itemStack2);
                             }

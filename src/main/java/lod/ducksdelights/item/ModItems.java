@@ -1,10 +1,13 @@
 package lod.ducksdelights.item;
 
 import lod.ducksdelights.block.ModBlocks;
+import lod.ducksdelights.item.custom.InfiniteBucketItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.component.type.FoodComponents;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -22,9 +25,17 @@ public final class ModItems {
         return (settings) -> new BlockItem(block, settings.useItemPrefixedTranslationKey());
     }
 
+    private static Function<Item.Settings, Item> createInfiniteBucketItem(Fluid fluid) {
+        return (settings) -> new InfiniteBucketItem(fluid, settings.useItemPrefixedTranslationKey());
+    }
+
     public static final Item HAUNTED_METAL_SCRAP = register("haunted_metal_scrap", Item::new, new Item.Settings());
     public static final Item HAUNTED_METAL_SHEETS = register("haunted_metal_sheets", Item::new, new Item.Settings());
     public static final Item HAUNTED_STEEL_INGOT = register("haunted_steel_ingot", Item::new, new Item.Settings());
+    public static final Item HAUNTED_STEEL_BUCKET = register("haunted_steel_bucket", createInfiniteBucketItem(Fluids.EMPTY), new Item.Settings().maxCount(1));
+    public static final Item HAUNTED_STEEL_WATER_BUCKET = register("haunted_steel_water_bucket", createInfiniteBucketItem(Fluids.WATER), new Item.Settings().maxCount(1));
+    public static final Item HAUNTED_STEEL_LAVA_BUCKET = register("haunted_steel_lava_bucket", createInfiniteBucketItem(Fluids.LAVA), new Item.Settings().maxCount(1));
+
 
     public static final Item RAW_RICE = register("raw_rice", createBlockItemWithUniqueName(ModBlocks.RICE_CROP), new Item.Settings());
     public static final Item RAW_GOLDEN_RICE = register("raw_golden_rice", createBlockItemWithUniqueName(ModBlocks.GOLDEN_RICE_CROP), new Item.Settings());

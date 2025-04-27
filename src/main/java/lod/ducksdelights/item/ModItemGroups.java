@@ -21,6 +21,9 @@ public class ModItemGroups {
                         entries.add(ModBlocks.SCULK_SPEAKER);
                         entries.add(ModBlocks.MOON_PHASE_DETECTOR);
                         entries.add(ModBlocks.DEMON_CORE);
+                        entries.add(ModItems.HAUNTED_STEEL_BUCKET);
+                        entries.add(ModItems.HAUNTED_STEEL_WATER_BUCKET);
+                        entries.add(ModItems.HAUNTED_STEEL_LAVA_BUCKET);
                     }).build());
 
     public static final ItemGroup DUCKSDELIGHTS_MATERIALS_GROUP = Registry.register(Registries.ITEM_GROUP,

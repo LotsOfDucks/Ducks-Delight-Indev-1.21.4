@@ -34,6 +34,7 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.HAUNTED_STEEL_INGOT))
                     .displayName(Text.translatable("itemgroup.ducksdelights.materials"))
                     .entries((displayContext, entries) -> {
+                        entries.add(ModItems.MOTE_OF_CREATION);
                         entries.add(ModItems.HAUNTED_METAL_SCRAP);
                         entries.add(ModItems.HAUNTED_METAL_SHEETS);
                         entries.add(ModItems.HAUNTED_STEEL_INGOT);

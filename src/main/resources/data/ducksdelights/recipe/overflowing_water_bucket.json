@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": "ducksdelights:haunted_steel_bucket",
-    "$": "minecraft:heart_of_the_sea",
-    "%": "minecraft:ghast_tear"
-  },
-  "pattern": [
-    "%$%",
-    "%#%"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:heart_of_the_sea",
+    "ducksdelights:haunted_steel_water_bucket",
+    "ducksdelights:mote_of_creation"
   ],
   "result": {
-    "count": 1,
-    "id": "ducksdelights:overflowing_water_bucket"
+    "id": "ducksdelights:overflowing_water_bucket",
+    "count": 1
   }
 }

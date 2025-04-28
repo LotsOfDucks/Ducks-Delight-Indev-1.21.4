@@ -31,6 +31,7 @@ public final class ModItems {
         return (settings) -> new InfiniteBucketItem(fluid, settings.useItemPrefixedTranslationKey());
     }
 
+    public static final Item MOTE_OF_CREATION = register("mote_of_creation", Item::new, new Item.Settings());
     public static final Item HAUNTED_METAL_SCRAP = register("haunted_metal_scrap", Item::new, new Item.Settings());
     public static final Item HAUNTED_METAL_SHEETS = register("haunted_metal_sheets", Item::new, new Item.Settings());
     public static final Item HAUNTED_STEEL_INGOT = register("haunted_steel_ingot", Item::new, new Item.Settings());

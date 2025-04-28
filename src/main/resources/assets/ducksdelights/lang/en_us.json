@@ -6,6 +6,7 @@
   "item.ducksdelights.sculk_speaker": "Sculk Speaker",
   "item.ducksdelights.demon_core": "Demon Core",
   "item.ducksdelights.moon_phase_detector": "Moon Phase Detector",
+
   "item.ducksdelights.paddy_farmland": "Paddy",
   "item.ducksdelights.raw_rice": "Paddy Rice",
   "item.ducksdelights.raw_golden_rice": "Golden Paddy Rice",
@@ -17,6 +18,7 @@
   "item.ducksdelights.pork_onigiri": "Pork Onigiri",
   "item.ducksdelights.salmon_onigiri": "Salmon Onigiri",
   "item.ducksdelights.gilded_onigiri": "Gilded Onigiri",
+
   "item.ducksdelights.mote_of_creation": "Mote Of Creation",
   "item.ducksdelights.haunted_metal_scrap": "Haunted Metal Scrap",
   "item.ducksdelights.haunted_metal_sheets": "Haunted Metal Sheets",
@@ -26,6 +28,16 @@
   "item.ducksdelights.haunted_steel_lava_bucket": "Haunted Steel Lava Bucket",
   "item.ducksdelights.overflowing_water_bucket": "Overflowing Water Bucket",
   "item.ducksdelights.overflowing_lava_bucket": "Overflowing Lava Bucket",
+
+  "item.minecraft.potion.effect.health_boost_potion": "Health Boost Potion",
+  "item.minecraft.splash_potion.effect.health_boost_potion": "Health Boost Potion",
+  "item.minecraft.lingering_potion.effect.health_boost_potion": "Health Boost Potion",
+  "item.minecraft.potion.effect.long_health_boost_potion": "Health Boost Potion",
+  "item.minecraft.splash_potion.effect.long_health_boost_potion": "Health Boost Potion",
+  "item.minecraft.lingering_potion.effect.long_health_boost_potion": "Health Boost Potion",
+  "item.minecraft.potion.effect.strong_health_boost_potion": "Health Boost Potion",
+  "item.minecraft.splash_potion.effect.strong_health_boost_potion": "Health Boost Potion",
+  "item.minecraft.lingering_potion.effect.strong_health_boost_potion": "Health Boost Potion",
 
   "block.ducksdelights.sculk_speaker": "Sculk Speaker",
   "block.ducksdelights.demon_core": "Demon Core",

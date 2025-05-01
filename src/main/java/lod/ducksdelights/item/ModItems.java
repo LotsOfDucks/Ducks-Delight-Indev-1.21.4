@@ -4,6 +4,8 @@ import lod.ducksdelights.block.ModBlocks;
 import lod.ducksdelights.item.custom.HauntedBucketItem;
 import lod.ducksdelights.item.custom.InfiniteBucketItem;
 import net.minecraft.block.Block;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.DamageResistantComponent;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
@@ -11,7 +13,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import java.util.function.Function;
 
@@ -31,7 +35,7 @@ public final class ModItems {
         return (settings) -> new InfiniteBucketItem(fluid, settings.useItemPrefixedTranslationKey());
     }
 
-    public static final Item MOTE_OF_CREATION = register("mote_of_creation", Item::new, new Item.Settings());
+    public static final Item MOTE_OF_CREATION = register("mote_of_creation", Item::new, new Item.Settings().rarity(Rarity.UNCOMMON).component(DataComponentTypes.DAMAGE_RESISTANT, new DamageResistantComponent(DamageTypeTags.IS_EXPLOSION)));
     public static final Item HAUNTED_METAL_SCRAP = register("haunted_metal_scrap", Item::new, new Item.Settings());
     public static final Item HAUNTED_METAL_SHEETS = register("haunted_metal_sheets", Item::new, new Item.Settings());
     public static final Item HAUNTED_STEEL_INGOT = register("haunted_steel_ingot", Item::new, new Item.Settings());
@@ -40,6 +44,8 @@ public final class ModItems {
     public static final Item HAUNTED_STEEL_LAVA_BUCKET = register("haunted_steel_lava_bucket", createHauntedBucketItem(Fluids.LAVA), new Item.Settings().maxCount(16));
     public static final Item OVERFLOWING_WATER_BUCKET = register("overflowing_water_bucket", createInfiniteBucketItem(Fluids.WATER), new Item.Settings().maxCount(1));
     public static final Item OVERFLOWING_LAVA_BUCKET = register("overflowing_lava_bucket", createInfiniteBucketItem(Fluids.LAVA), new Item.Settings().maxCount(1));
+
+    public static final Item KIBBLESTONE = register("kibblestone", Item::new, new Item.Settings().food(ModFoodComponents.KIBBLESTONE, ModConsumableComponents.KIBBLESTONE));
 
     public static final Item RAW_RICE = register("raw_rice", createBlockItemWithUniqueName(ModBlocks.RICE_CROP), new Item.Settings());
     public static final Item RAW_GOLDEN_RICE = register("raw_golden_rice", createBlockItemWithUniqueName(ModBlocks.GOLDEN_RICE_CROP), new Item.Settings());

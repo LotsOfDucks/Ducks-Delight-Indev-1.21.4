@@ -4,6 +4,7 @@ import net.minecraft.component.type.FoodComponent;
 
 public class ModFoodComponents {
 
+    public static final FoodComponent KIBBLESTONE = (new FoodComponent.Builder()).nutrition(1).saturationModifier(0.1F).build();
     public static final FoodComponent WHITE_RICE = (new FoodComponent.Builder()).nutrition(2).saturationModifier(0.4F).build();
     public static final FoodComponent GOLDEN_RICE = (new FoodComponent.Builder()).nutrition(4).saturationModifier(1.2F).build();
     public static final FoodComponent ONIGIRI = (new FoodComponent.Builder()).nutrition(5).saturationModifier(0.5F).build();

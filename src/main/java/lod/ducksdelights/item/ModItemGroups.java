@@ -56,6 +56,7 @@ public class ModItemGroups {
                         entries.add(ModItems.BEEF_ONIGIRI);
                         entries.add(ModItems.SALMON_ONIGIRI);
                         entries.add(ModItems.GILDED_ONIGIRI);
+                        entries.add(ModItems.KIBBLESTONE);
                     }).build());
 
 

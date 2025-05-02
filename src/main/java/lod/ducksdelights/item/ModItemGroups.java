@@ -38,6 +38,7 @@ public class ModItemGroups {
                         entries.add(ModItems.HAUNTED_METAL_SCRAP);
                         entries.add(ModItems.HAUNTED_METAL_SHEETS);
                         entries.add(ModItems.HAUNTED_STEEL_INGOT);
+                        entries.add(ModBlocks.HAUNTED_STEEL_BLOCK);
                     }).build());
 
     public static final ItemGroup DUCKSDELIGHTS_FOOD_GROUP = Registry.register(Registries.ITEM_GROUP,

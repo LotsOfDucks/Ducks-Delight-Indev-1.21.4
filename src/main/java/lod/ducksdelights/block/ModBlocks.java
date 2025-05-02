@@ -69,6 +69,13 @@ public class ModBlocks {
             true
     );
 
+    public static final Block HAUNTED_STEEL_BLOCK = register(
+            "haunted_steel_block",
+            Block::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.CYAN).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE),
+            true
+    );
+
     public static final Block RICE_CROP = register(
             "rice_crop",
             RiceCropBlock::new,
